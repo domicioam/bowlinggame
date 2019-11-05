@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
 public class Frame {
 	
@@ -36,10 +37,18 @@ public class Frame {
 	}
 
 	public boolean isSpare() {
-		return getScore() == 10;
+		return getScore() == 10 && !isStrike();
 	}
 
 	public int getScore(Frame next) {
 		return this.getScore() + next.getRolls().get(0).getPins();
+	}
+
+	public boolean isStrike() {
+		if(getRolls().size() > 0) {
+			return getRolls().get(0).getPins() == 10;
+		} else {
+			return false;
+		}
 	}
 }

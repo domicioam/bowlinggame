@@ -24,6 +24,7 @@ class FrameTest {
 		
 		assertEquals(1, frame.getRolls().size());
 		assertEquals(10, frame.getScore());
+		assertTrue(frame.isStrike());
 	}
 	
 	@Test
@@ -49,6 +50,14 @@ class FrameTest {
 		Frame frame = new Frame();
 		frame.roll(4);
 		frame.roll(5);
+		
+		assertFalse(frame.isSpare());
+	}
+	
+	@Test
+	void test_strike_is_not_spare() {
+		Frame frame = new Frame();
+		frame.roll(10);
 		
 		assertFalse(frame.isSpare());
 	}

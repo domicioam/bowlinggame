@@ -29,6 +29,19 @@ class GameTest {
 		rollMany(17, 0);
 		assertEquals(16, game.score());
 	}
+	
+	@Test
+	void testOneStrike() {
+		rollStrike();
+		game.roll(3);
+		game.roll(4);
+		rollMany(16, 0);
+		assertEquals(24, game.score());
+	}
+
+	private void rollStrike() {
+		game.roll(10);
+	}
 
 	@BeforeEach
 	private void setUp() {
