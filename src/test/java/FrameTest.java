@@ -35,4 +35,36 @@ class FrameTest {
 		  frame.roll(0);
 		});
 	}
+	
+	@Test
+	void testSpare() {
+		Frame frame = new Frame();
+		rollSpare(frame);
+		
+		assertTrue(frame.isSpare());
+	}
+	
+	@Test
+	void test_is_not_spare() {
+		Frame frame = new Frame();
+		frame.roll(4);
+		frame.roll(5);
+		
+		assertFalse(frame.isSpare());
+	}
+	
+	@Test
+	void testSpareScore() {
+		Frame frame = new Frame();
+		rollSpare(frame);
+		Frame next = new Frame();
+		next.roll(3);
+		
+		assertEquals(13, frame.getScore(next));
+	}
+
+	private void rollSpare(Frame frame) {
+		frame.roll(5);
+		frame.roll(5);
+	}
 }

@@ -1,13 +1,9 @@
 package main.java;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-
-	private int score;
-	
 	List<Frame> frames;
 	
 	public Game() {
@@ -16,7 +12,18 @@ public class Game {
 	}
 
 	public int score() {
-		return this.score;
+		int score = 0;
+		for (int i = 0; i < frames.size(); i++) {
+			Frame frame = frames.get(i);
+			if(frame.isSpare()) {
+				Frame next = frames.get(i + 1);
+				score += frame.getScore(next);
+			} else {
+				score += frame.getScore();
+			}
+		}
+		
+		return score;
 	}
 
 	public void roll(int score) {
@@ -24,6 +31,9 @@ public class Game {
 		if(last.getRolls().size() == 2) {
 			Frame current = new Frame();
 			current.roll(score);
+			frames.add(current);
+		} else {
+			last.roll(score);
 		}
 	}
 

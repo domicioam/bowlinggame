@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import main.java.Game;
 
-class BowlingGameTest {
+class GameTest {
 	private Game game;
 	
 	@Test

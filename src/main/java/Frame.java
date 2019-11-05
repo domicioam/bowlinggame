@@ -34,4 +34,12 @@ public class Frame {
 		
 		return score;
 	}
+
+	public boolean isSpare() {
+		return getScore() == 10;
+	}
+
+	public int getScore(Frame next) {
+		return this.getScore() + next.getRolls().get(0).getPins();
+	}
 }
