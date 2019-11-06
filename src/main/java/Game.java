@@ -19,16 +19,24 @@ public class Game {
 				Frame next = frames.get(i + 1);
 				score += frame.getScore(next);
 			} else if(frame.isStrike()) { // ugly code - refactor
-				Frame next = frames.get(i + 1);
-				if(next.isStrike()) {
-					Frame next_next = frames.get(i + 2);
-					score += frame.getScore() + next.getScore() + next_next.getRolls().get(0).getPins();
-				} else {
-					score += frame.getScore() + next.getScore();
-				}
+				score += frame.getScore() + getNextTwoRollsScore(frame, frames);
 			} else {
 				score += frame.getScore();
 			}
+		}
+		
+		return score;
+	}
+
+	private int getNextTwoRollsScore(Frame current, List<Frame> frames) {
+		int score = 0;
+		int i = frames.indexOf(current);
+		Frame next = frames.get(i + 1);
+		if(next.isStrike()) {
+			Frame next_next = frames.get(i + 2);
+			score += next.getScore() + next_next.getRolls().get(0).getPins();
+		} else {
+			score += next.getScore();
 		}
 		
 		return score;
@@ -44,5 +52,4 @@ public class Game {
 			last.roll(score);
 		}
 	}
-
 }
