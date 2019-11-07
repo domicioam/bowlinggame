@@ -2,12 +2,11 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BooleanSupplier;
 
 public class Frame {
 	
 	List<Roll> rolls;
-	
+
 	public Frame() {
 		rolls = new ArrayList<Roll>();
 	}
