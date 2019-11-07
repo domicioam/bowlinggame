@@ -3,9 +3,14 @@ package main.java;
 public class Game {
 	LinkedList<Frame> frames;
 	
+	public LinkedList<Frame> getFrames() {
+		return frames;
+	}
+
 	public Game() {
 		frames = new LinkedList<Frame>();
-		frames.add(new Frame());
+		FrameFactory factory = new FrameFactory();
+		frames.add(factory.getFrame(frames.size()));
 	}
 
 	public int score() {
@@ -17,13 +22,17 @@ public class Game {
 			if(frame.isSpare()) {
 				Frame next = node.getNext().getValue();
 				score += frame.getScore() + next.getScore();
-			} else if(frame.isStrike()) {
-				Frame next = node.getNext().getValue();
-				if(next.isStrike()) {
-					Frame next_next = node.getNext().getNext().getValue();
-					score += frame.getScore() + next.getScore() + next_next.getRolls().get(0).getPins();
-				} else {
-					score += frame.getScore() + next.getScore();
+			} else if(node.getValue().isStrike() && node.getNext() != null ) {
+				Node<Frame> next = node.getNext();
+				if(next != null) {
+					if(next.getValue().isStrike()) {
+						Node<Frame> next_next = next.getNext();
+						if(next_next != null) {
+							score += frame.getScore() + next.getValue().getScore() + next_next.getValue().getRolls().get(0).getPins();
+						}
+					} else {
+						score += frame.getScore() + next.getValue().getScore();
+					}
 				}
 			} else {
 				score += frame.getScore();
@@ -36,12 +45,13 @@ public class Game {
 
 	public void roll(int score) {
 		Frame last = frames.getLast().getValue();
-		if(last.getRolls().size() == 2 || last.isStrike()) {
-			Frame frame = new Frame();
+		if(last.canRoll()) {
+			last.roll(score);
+		} else {
+			FrameFactory factory = new FrameFactory();
+			Frame frame = factory.getFrame(frames.size());
 			frame.roll(score);
 			frames.add(frame);
-		} else {
-			last.roll(score);
 		}
 	}
 }

@@ -71,6 +71,23 @@ class FrameTest {
 		
 		assertEquals(13, frame.getScore(next));
 	}
+	
+	@Test
+	void should_let_roll_when_one_roll() {
+		Frame frame = new Frame();
+		frame.roll(0);
+		
+		assertTrue(frame.canRoll());
+	}
+	
+	@Test
+	void should_not_let_roll_when_two_rolls() {
+		Frame frame = new Frame();
+		frame.roll(0);
+		frame.roll(0);
+		
+		assertFalse(frame.canRoll());
+	}
 
 	private void rollSpare(Frame frame) {
 		frame.roll(5);

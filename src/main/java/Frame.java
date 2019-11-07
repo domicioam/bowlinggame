@@ -24,6 +24,10 @@ public class Frame {
 		roll.setPins(score);
 		rolls.add(roll);
 	}
+	
+	public boolean canRoll() {
+		return !(getRolls().size() == 2 || isStrike());
+	}
 
 	public int getScore() {
 		int score = 0;

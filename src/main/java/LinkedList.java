@@ -3,6 +3,8 @@ package main.java;
 public class LinkedList<T> {
 	private Node<T> head;
 	private Node<T> last;
+	private int size;
+	
 	void add(T frame) {
 		Node<T> node = new Node<T>();
 		node.setValue(frame);
@@ -14,11 +16,15 @@ public class LinkedList<T> {
 			last.setNext(node);
 			last = node;
 		}
+		size++;
 	}
 	public Node<T> getHead() {
 		return head;
 	}
 	public Node<T> getLast() {
 		return last;
+	}
+	public int size() {
+		return size;
 	}
 }

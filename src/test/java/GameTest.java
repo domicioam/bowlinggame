@@ -38,6 +38,26 @@ class GameTest {
 		rollMany(16, 0);
 		assertEquals(24, game.score());
 	}
+	
+	@Test
+	void testLastFrame() {
+		rollMany(18, 0);
+		assertEquals(9, game.getFrames().size());
+		rollMany(3, 10);
+		assertEquals(30, game.score());
+	}
+	
+	@Test
+	void testPerfectGame() {
+		rollMany(12, 10);
+		assertEquals(300, game.score());
+	}
+	
+	@Test
+	void testMaxFrames() {
+		rollMany(20, 0);
+		assertEquals(10, game.getFrames().size());
+	}
 
 	private void rollStrike() {
 		game.roll(10);
