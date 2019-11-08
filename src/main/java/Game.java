@@ -2,7 +2,7 @@ package main.java;
 
 public class Game {
 	LinkedList<Frame> frames;
-	
+
 	public LinkedList<Frame> getFrames() {
 		return frames;
 	}
@@ -16,33 +16,28 @@ public class Game {
 	public int score() {
 		int score = 0;
 		Node<Frame> node = frames.getHead();
-		
+
 		while(node != null) {
 			Frame frame = node.getValue();
 			if(frame.isSpare()) {
 				Frame next = node.getNext().getValue();
 				score += frame.getScore() + next.getScore();
-			} else if(frame.isStrike()) {
-				if(node.getNext() != null ) {
-					Node<Frame> next = node.getNext();
-						if(next.getValue().isStrike()) {
-							Node<Frame> next_next = next.getNext();
-							if(next_next != null) {
-								score += frame.getScore() + next.getValue().getScore() + next_next.getValue().getRolls().get(0).getPins();
-							}
-						} else {
-							score += frame.getScore() + next.getValue().getScore();
-						}
-					
+			} else if(frame.isStrike() && node.getNext() != null ) {
+				Node<Frame> next = node.getNext();
+				if(next.getValue().isStrike()) {
+					Node<Frame> next_next = next.getNext();
+					if(next_next != null) {
+						score += frame.getScore() + next.getValue().getScore() + next_next.getValue().getRolls().get(0).getPins();
+					}
 				} else {
-					score += frame.getScore();
+					score += frame.getScore() + next.getValue().getScore();
 				}
 			} else {
 				score += frame.getScore();
 			}
 			node = node.getNext();
 		}
-		
+
 		return score;
 	}
 
