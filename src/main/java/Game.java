@@ -22,17 +22,20 @@ public class Game {
 			if(frame.isSpare()) {
 				Frame next = node.getNext().getValue();
 				score += frame.getScore() + next.getScore();
-			} else if(node.getValue().isStrike() && node.getNext() != null ) {
-				Node<Frame> next = node.getNext();
-				if(next != null) {
-					if(next.getValue().isStrike()) {
-						Node<Frame> next_next = next.getNext();
-						if(next_next != null) {
-							score += frame.getScore() + next.getValue().getScore() + next_next.getValue().getRolls().get(0).getPins();
+			} else if(frame.isStrike()) {
+				if(node.getNext() != null ) {
+					Node<Frame> next = node.getNext();
+						if(next.getValue().isStrike()) {
+							Node<Frame> next_next = next.getNext();
+							if(next_next != null) {
+								score += frame.getScore() + next.getValue().getScore() + next_next.getValue().getRolls().get(0).getPins();
+							}
+						} else {
+							score += frame.getScore() + next.getValue().getScore();
 						}
-					} else {
-						score += frame.getScore() + next.getValue().getScore();
-					}
+					
+				} else {
+					score += frame.getScore();
 				}
 			} else {
 				score += frame.getScore();
