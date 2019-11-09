@@ -58,6 +58,25 @@ class GameTest {
 		rollMany(20, 0);
 		assertEquals(10, game.getFrames().size());
 	}
+	
+	@Test
+	void shouldReturnSinxtyForThreeStrikesInARow() {
+		rollStrike();
+		rollStrike();
+		rollStrike();
+		rollMany(14, 0);
+		assertEquals(60, game.score());
+	}
+	
+	@Test
+	void shouldReturnSixtyForFourStrikesInARowAtTheEnd() {
+		rollMany(16, 0);
+		rollStrike();
+		rollStrike();
+		rollStrike();
+		rollStrike();
+		assertEquals(60, game.score());
+	}
 
 	private void rollStrike() {
 		game.roll(10);
