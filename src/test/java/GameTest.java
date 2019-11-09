@@ -60,7 +60,7 @@ class GameTest {
 	}
 	
 	@Test
-	void shouldReturnSinxtyForThreeStrikesInARow() {
+	void shouldReturnSixtyForThreeStrikesInARow() {
 		rollStrike();
 		rollStrike();
 		rollStrike();
